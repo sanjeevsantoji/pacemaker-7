@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseGuard | Digital Twin & AI Security</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <div class="logo">PULSEGUARD <span style="font-weight: 300; font-size: 14px;">DIGITAL TWIN V1.0</span></div>
+            <div id="main-status" class="status-badge status-normal">System Nominal</div>
+        </header>
+
+        <!-- Left Sidebar: Controls -->
+        <aside class="card">
+            <h3 style="margin-bottom: 20px;">Threat Simulator</h3>
+            <div class="controls">
+                <button onclick="triggerAttack('dos')" class="danger">Simulate DoS Attack</button>
+                <button onclick="triggerAttack('battery_drain')" class="danger">Simulate Battery Drain</button>
+                <button onclick="triggerFailure()" class="danger">Simulate Lead Fracture</button>
+                <button onclick="triggerAttack('reset')" class="primary">Reset Simulation</button>
+            </div>
+
+            <div class="ai-overlay">
+                <div class="metric-label">AI Anomaly Engine</div>
+                <div id="ai-prediction" class="threat-level">ANALYZING...</div>
+                <div id="ai-confidence" style="font-size: 12px; color: #888;">Confidence: 0%</div>
+            </div>
+            
+            <div style="margin-top: auto; padding: 15px; background: rgba(0,242,254,0.05); border-radius: 12px;">
+                <p style="font-size: 12px; line-height: 1.4;">
+                    <strong>Security Layer:</strong> Commands are verified via a local blockchain ledger to ensure provenance and integrity.
+                </p>
+            </div>
+        </aside>
+
+        <!-- Center: ECG Visualization -->
+        <main class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3>Live ECG Telemetry (Digital Twin)</h3>
+                <div id="bpm-display" style="font-size: 24px; font-weight: 800; color: var(--primary);">72 BPM</div>
+            </div>
+            <div class="ecg-container">
+                <canvas id="ecgChart"></canvas>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div id="battery-val" class="metric-value">100%</div>
+                    <div class="metric-label">Battery Level</div>
+                </div>
+                <div class="metric-card">
+                    <div id="lead-val" class="metric-value">Stable</div>
+                    <div class="metric-label">Lead Integrity</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar: Blockchain & Logs -->
+        <aside class="card">
+            <h3 style="margin-bottom: 20px;">Blockchain Ledger</h3>
+            <div id="blockchain-feed" class="blockchain-feed">
+                <!-- Blocks will appear here -->
+            </div>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">Doctor Actions</h3>
+            <div class="controls">
+                <input type="password" id="auth-token" placeholder="Secure Token" style="padding: 10px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: white; margin-bottom: 5px;">
+                <button onclick="sendAuthCommand('FIX_LEAD')" class="primary">Repair Leads</button>
+                <button onclick="sendAuthCommand('RESET')" class="primary">Full System Reset</button>
+            </div>
+        </aside>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
